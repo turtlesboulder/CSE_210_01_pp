@@ -1,5 +1,5 @@
 from random import randint
-from deck import *
+from deck import get_deck, shuffle_deck, get_value_number
 
 """
 """
@@ -12,9 +12,15 @@ def main():
     print(game_loop(my_deck, first_card))
 
 def game_loop(my_deck:list, first_card:str, points = 300):
+    """This is the main loop the game will run in, it will check how many points
+    the user has if the deck is empty. If it is not, it will let the user play the
+    round and ask them if they want to play again.
+    """
     if points > 0 and len(my_deck) > 0:
         user_input = input(
             f"The card is the {first_card}.\n Will the next one be higher or lower? [h/l]\n>> ")
+        # This gets the next card in the deck, and removes it. This way we work through
+        # the deck.
         next_card = my_deck.pop(0)
         passed = get_pass_fail(get_value_number(first_card),get_value_number(next_card), user_input)     
         if passed:
@@ -39,6 +45,10 @@ def game_loop(my_deck:list, first_card:str, points = 300):
 
 
 def get_pass_fail(num1, num2, guess):
+    """This will compare two numbers against a guess
+    as to which one is higher. If the guess is correct,
+    this will return True.
+    """
     passed = False
     if num1 < num2:
         if guess == "h":
